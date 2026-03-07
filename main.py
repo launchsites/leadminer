@@ -3,7 +3,6 @@ from dotenv import load_dotenv, set_key
 import os
 from pathlib import Path
 
-
 from search import search
 from output import output
 from setup import setup
