@@ -1,6 +1,12 @@
 import typer
 from dotenv import load_dotenv
 import os
+from pathlib import Path
+
+# check that .env exists otherwise create
+if not os.path.exists(".env"):
+   Path(".env").touch()
+
 load_dotenv(".env")
 
 searchLimit = os.getenv("LIMIT")
@@ -11,10 +17,11 @@ app = typer.Typer()
 
 #help function
 @app.command()
-def help():
-    print("help")
+def helps():
+    print()
 
 #search function
+@app.command()
 def search(
         business_type: str,
         location: str,
