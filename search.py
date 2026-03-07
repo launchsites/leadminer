@@ -1,3 +1,5 @@
+import requests, os
+
 def search(
         business_type: str,
         location: str,
