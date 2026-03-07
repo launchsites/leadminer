@@ -1,7 +1,15 @@
 import typer
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key
 import os
 from pathlib import Path
+
+
+from search import search
+from output import output
+from setup import setup
+from help import help
+from campaigns import campaign
+
 
 # check that .env exists otherwise create
 if not os.path.exists(".env"):
@@ -10,40 +18,20 @@ if not os.path.exists(".env"):
 load_dotenv(".env")
 
 searchLimit = os.getenv("LIMIT")
-api_key = os.getenv("API_KEY")
+places_api_key = os.getenv("API_KEY")
+
+# if no limit set
+if searchLimit is None:
+    set_key(".env", "LIMIT", "1000")
 
 app = typer.Typer()
 
+# search
+app.command()(search)
+app.command()(output)
+app.command()(help)
+app.command()(campaign)
+app.command()(setup)
 
-#help function
-@app.command()
-def helps():
-    print()
-
-#search function
-@app.command()
-def search(
-        business_type: str,
-        location: str,
-        website: bool = "a",
-        min_rating: float = 0,
-        max_rating: float = 5,
-        limit: int = searchLimit,
-        min_reviews: int = 0,
-        max_reviews: int = 999999999,
-        output_format: str = "cli"):
-
-    print("search")
-
-# campaign command
-    # create campaign
-    # select campaign
-    # list campaigns
-    # remove campaigns
-    # list data of campaign
-
-# setup command
-    # setup places api key
-    # set max limit
 
 app()
