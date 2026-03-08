@@ -1,5 +1,8 @@
 import sqlite3
 from pathlib import Path
+import classes
+
+from output import output_cli
 
 database_path = Path.home() / ".leadminer" / "leadminer.db"
 
@@ -128,9 +131,17 @@ def list_campaign_data(name: str):
     """, (name,))
 
     rows = cursor.fetchall()
-
+    output = []
     for row in rows:
-        print(row)
+        row_name = row[0]
+        row_address = row[1]
+        row_phone = row[2]
+        row_site = row[3]
+        row_rating = row[4]
+        row_reviews = row[5]
+        temp = classes.Lead("n/a", row_name, row_address, row_phone, row_site, row_rating, row_reviews)
+        output.append(temp)
+    output_cli(output)
 
     connection.close()
 
