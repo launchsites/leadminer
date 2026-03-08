@@ -88,7 +88,7 @@ def get_campaign_id(name: str):
     connection.close()
 
     if result is not None:
-        return result
+        return result[0]
     else:
         return None
 
