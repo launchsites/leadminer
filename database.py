@@ -121,7 +121,7 @@ def list_campaign_data(name: str):
     cursor = connection.cursor()
 
     cursor.execute("""
-    SELECT leads.name, leads.address, leads.rating, leads.reviews
+    SELECT leads.name, leads.address, leads.phone, leads.website, leads.rating, leads.reviews
     FROM leads
     JOIN campaigns ON leads.campaign_id = campaigns.id
     WHERE campaigns.name = ?
