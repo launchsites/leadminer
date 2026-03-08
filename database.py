@@ -133,3 +133,5 @@ def list_campaign_data(name: str):
         print(row)
 
     connection.close()
+
+make_tables()

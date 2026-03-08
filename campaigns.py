@@ -2,9 +2,10 @@ import database
 from database import *
 from dotenv import load_dotenv, set_key, get_key
 import os
+import typer
 
 
-def campaign(command: str, option: str | None = None):
+def campaign(command: str =typer.Argument(...), option: str | None = typer.Argument(None)):
 
     if command == "create":
         #check valid name
@@ -21,6 +22,7 @@ def campaign(command: str, option: str | None = None):
             print("That campaign does not exist")
 
     elif command == "list":
+        print(database_path)
         if option:
             campaign_id = get_campaign_id(option)
             if campaign_id:
@@ -45,3 +47,6 @@ def campaign(command: str, option: str | None = None):
         if exists:
             set_key(".env", "ACTIVE_CAMPAIGN_NAME", "")
         else: print("You are not currently connected to a campaign")
+
+    else:
+        print(f"\"{option}\" is not a recognised command")
