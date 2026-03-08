@@ -1,0 +1,13 @@
+[project]
+name = "leadfinder"
+version = "0.1.0"
+description = "CLI tool for finding local business leads"
+dependencies = [
+    "requests",
+    "python-dotenv",
+    "rich",
+    "typer"
+]
+
+[project.scripts]
+leadfinder = "leadfinder.main:app"
