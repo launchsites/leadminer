@@ -1,15 +1,26 @@
 # LeadMiner
 
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+![PyPI](https://img.shields.io/pypi/v/leadminer)
+![License](https://img.shields.io/badge/license-MIT-green)
+![CLI](https://img.shields.io/badge/interface-CLI-orange)
+
 A fast **CLI tool for finding local business leads** using the Google Places API.
 
 Search for businesses in any location, filter them by rating, reviews, or website presence, and export results to a clean terminal table or CSV file.
 
 Perfect for:
 
-- lead generation  
-- local outreach  
-- agency prospecting  
+- lead generation
+- local outreach
+- agency prospecting
 - scraping potential clients quickly
+
+---
+
+## Demo
+
+![LeadMiner Demo](demo.gif)
 
 ---
 
@@ -61,8 +72,10 @@ pipx ensurepath
 
 ## Install LeadMiner
 
+Install from **PyPI**:
+
 ```bash
-pipx install git+https://github.com/launchsites/leadminer.git
+pipx install leadminer
 ```
 
 Then run:
@@ -73,19 +86,27 @@ leadminer --help
 
 ---
 
+## Install from GitHub (development version)
+
+If you want the latest development version instead:
+
+```bash
+pipx install git+https://github.com/launchsites/leadminer.git
+```
+
+---
+
 # Setup
 
 LeadMiner requires a **Google Places API key**.
 
-Run:
+To learn how to obtain one, run:
 
 ```bash
 leadminer setup key
 ```
 
-Follow the instructions printed in the terminal.
-
-Or set your key directly:
+Then set your key:
 
 ```bash
 leadminer setup key YOUR_API_KEY
@@ -145,7 +166,7 @@ leadminer search plumber london --output-format csv
 
 CSV files are saved to:
 
-```
+```text
 ~/.leadminer/exports/
 ```
 
@@ -229,19 +250,19 @@ Run searches and build your lead list.
 
 LeadMiner stores data locally:
 
-```
+```text
 ~/.leadminer/
 ```
 
 Database:
 
-```
+```text
 ~/.leadminer/leadminer.db
 ```
 
 Exports:
 
-```
+```text
 ~/.leadminer/exports/
 ```
 
@@ -251,25 +272,25 @@ Exports:
 
 Search businesses:
 
-```
+```text
 leadminer search
 ```
 
 Campaign management:
 
-```
+```text
 leadminer campaign
 ```
 
 Setup API key and limit:
 
-```
+```text
 leadminer setup
 ```
 
 Help:
 
-```
+```text
 leadminer help
 ```
 

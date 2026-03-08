@@ -1,3 +1,4 @@
+import typer
 from dotenv import load_dotenv, set_key
 
 # setup command
@@ -6,7 +7,7 @@ from dotenv import load_dotenv, set_key
 
 
 
-def setup(choice: str, value: str | None = None):
+def setup(choice: str = typer.Argument(...), value: str | None = typer.Argument(None)):
 
     if choice == "key" and value:
         set_key(".env", "API_KEY", value)
