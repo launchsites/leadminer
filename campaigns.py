@@ -17,12 +17,11 @@ def campaign(command: str =typer.Argument(...), option: str | None = typer.Argum
         if campaign_id:
             load_dotenv(".env")
             set_key(".env", "ACTIVE_CAMPAIGN_NAME", option)
-            set_key(".env", "ACTIVE_CAMPAIGN_ID", campaign_id)
+            set_key(".env", "ACTIVE_CAMPAIGN_ID", str(campaign_id))
         else:
             print("That campaign does not exist")
 
     elif command == "list":
-        print(database_path)
         if option:
             campaign_id = get_campaign_id(option)
             if campaign_id:
@@ -46,6 +45,7 @@ def campaign(command: str =typer.Argument(...), option: str | None = typer.Argum
         exists = get_key(".env", "ACTIVE_CAMPAIGN_NAME")
         if exists:
             set_key(".env", "ACTIVE_CAMPAIGN_NAME", "")
+            set_key(".env", "ACTIVE_CAMPAIGN_ID", "")
         else: print("You are not currently connected to a campaign")
 
     else:
