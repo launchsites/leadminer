@@ -2,6 +2,7 @@ import requests, os
 from dotenv import load_dotenv, get_key
 import classes
 from database import save_lead
+import output as output_functions
 
 url = "https://places.googleapis.com/v1/places:searchText"
 
@@ -81,5 +82,8 @@ def search(
                 if campaign_active:
                     save_lead(lead, campaign_active)
 
-
+        if output_format == "cli":
+            output_functions.output_cli(output)
+        elif output_format == "csv":
+            output_functions.output_csv(output)
         all_good = False

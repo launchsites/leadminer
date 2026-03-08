@@ -21,7 +21,7 @@ places_api_key = os.getenv("API_KEY")
 
 # if no limit set
 if searchLimit is None:
-    set_key(".env", "LIMIT", "1000")
+    set_key(".env", "LIMIT", "100")
 
 app = typer.Typer()
 
