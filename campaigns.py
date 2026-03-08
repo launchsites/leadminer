@@ -1,6 +1,6 @@
 import database
 from database import *
-from dotenv import load_dotenv, set_key
+from dotenv import load_dotenv, set_key, get_key
 import os
 
 
@@ -40,8 +40,8 @@ def campaign(command: str, option: str | None = None):
         else: print("That campaign does not exist")
 
     elif command == "disconnect":
-        campaign_id = get_campaign_id(option)
-        if campaign_id:
-            load_dotenv(".env")
+        load_dotenv(".env")
+        exists = get_key(".env", "ACTIVE_CAMPAIGN_NAME")
+        if exists:
             set_key(".env", "ACTIVE_CAMPAIGN_NAME", "")
         else: print("You are not currently connected to a campaign")

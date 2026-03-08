@@ -1,7 +1,7 @@
 import requests, os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, get_key
 import classes
-
+from database import save_lead
 
 url = "https://places.googleapis.com/v1/places:searchText"
 
@@ -61,5 +61,11 @@ def search(
 
             temp = classes.Lead(place_id, name, address, phone, website, rating, reviews)
             object_results.append(temp)
+
+        load_dotenv(".env")
+        campaign_active = get_key(".env", "ACTIVE_CAMPAIGN_NAME")
+        if campaign_active:
+            for lead in object_results:
+                save_lead(lead, campaign_active)
 
         all_good = False
