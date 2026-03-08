@@ -34,4 +34,14 @@ def help():
             campaign list
         List all data within a campaign:
             campaign list <name>
+            
+    Setup
+        
+        Set API key:
+            setup key <api_key>
+        Learn how to find your API key:
+            setup key
+        Set limit of businesses returned to you per search:
+            setup limit <limit>
+            
     """)
