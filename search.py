@@ -49,23 +49,37 @@ def search(
         results = response.json()
 
         object_results = []
+        campaign_active = get_key(".env", "ACTIVE_CAMPAIGN_NAME")
 
         for place in results["places"]:
             place_id = place["id"]
-            name = place["displayName"]["text"]
-            address = place["formattedAddress"]
-            rating = place.get("rating")
-            reviews = place.get("userRatingCount")
-            website = place.get("websiteUri")
-            phone = place.get("nationalPhoneNumber")
+            place_name = place["displayName"]["text"]
+            place_address = place["formattedAddress"]
+            place_rating = place.get("rating")
+            place_reviews = place.get("userRatingCount")
+            websiteUrl = place.get("websiteUri")
+            place_phone = place.get("nationalPhoneNumber")
 
-            temp = classes.Lead(place_id, name, address, phone, website, rating, reviews)
+            temp = classes.Lead(place_id, place_name, place_address, place_phone, websiteUrl, place_rating, place_reviews)
             object_results.append(temp)
+            output = []
 
-        load_dotenv(".env")
-        campaign_active = get_key(".env", "ACTIVE_CAMPAIGN_NAME")
-        if campaign_active:
-            for lead in object_results:
-                save_lead(lead, campaign_active)
+        for lead in object_results:
+            valid = True
+            if not (website == "a" or (website == "y" and lead.website) or (website == "n" and not lead.website)):
+                valid = False
+            if min_rating > lead.rating:
+                valid = False
+            if max_rating < lead.rating:
+                valid = False
+            if min_reviews > lead.reviews:
+                valid = False
+            if max_reviews < lead.reviews:
+                valid = False
+            if valid:
+                output.append(lead)
+                if campaign_active:
+                    save_lead(lead, campaign_active)
+
 
         all_good = False
