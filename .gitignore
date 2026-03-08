@@ -1,1 +1,17 @@
 /.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Packaging/build artifacts
+*.egg-info/
+build/
+dist/
+
+# macOS
+.DS_Store

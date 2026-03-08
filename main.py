@@ -5,7 +5,7 @@ from pathlib import Path
 
 from search import search
 from output import output
-from setup import setup
+from setup_cmd import setup
 from help import help
 from campaigns import campaign
 
@@ -33,4 +33,5 @@ app.command()(campaign)
 app.command()(setup)
 
 nit()
-app()
+if __name__ == "__main__":
+    app()
