@@ -22,7 +22,7 @@ def make_tables():
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS leads (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        place_id TEXT PRIMARY KEY,
         name TEXT,
         address TEXT,
         website TEXT,
@@ -101,7 +101,7 @@ def save_lead(place, campaign_name):
     cursor.execute("""
     INSERT OR IGNORE INTO leads
     (place_id, name, address, phone, website, rating, reviews, campaign_id)
-    VALUES (?,?,?,?,?,?)
+    VALUES (?,?,?,?,?,?,?,?)
     """, (
         place.placeId,
         place.name,

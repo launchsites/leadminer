@@ -1,5 +1,6 @@
 import requests, os
 from dotenv import load_dotenv
+import classes
 
 
 url = "https://places.googleapis.com/v1/places:searchText"
@@ -47,5 +48,18 @@ def search(
         response = requests.post(url, headers=headers, json=data)
         results = response.json()
 
-        print(results)
+        object_results = []
+
+        for place in results["places"]:
+            place_id = place["id"]
+            name = place["displayName"]["text"]
+            address = place["formattedAddress"]
+            rating = place.get("rating")
+            reviews = place.get("userRatingCount")
+            website = place.get("websiteUri")
+            phone = place.get("nationalPhoneNumber")
+
+            temp = classes.Lead(place_id, name, address, phone, website, rating, reviews)
+            object_results.append(temp)
+
         all_good = False
