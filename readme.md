@@ -2,50 +2,141 @@
 
 ![Python](https://img.shields.io/badge/python-3.10+-blue)
 ![PyPI](https://img.shields.io/pypi/v/leadminer)
+![Downloads](https://img.shields.io/pypi/dm/leadminer)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![CLI](https://img.shields.io/badge/interface-CLI-orange)
 
-A fast **CLI tool for finding local business leads** using the Google Places API.
+Find **local business leads directly from your terminal**.
 
-Search for businesses in any location, filter them by rating, reviews, or website presence, and export results to a clean terminal table or CSV file.
+LeadMiner is a fast CLI tool that searches the **Google Places API** for businesses, lets you filter them by useful outreach signals (rating, reviews, website presence), and export results instantly.
 
 Perfect for:
 
-- lead generation
-- local outreach
-- agency prospecting
-- scraping potential clients quickly
+- agencies doing cold outreach
+- freelancers finding potential clients
+- lead generation workflows
+- local market research
+- automation scripts
 
 ---
 
-## Demo
+# Demo
 
 ![LeadMiner Demo](demo.gif)
+
+Example command:
+
+```bash
+leadminer search plumber london --website n --output-format csv
+```
+
+Find **plumbers without websites in London** and export them to CSV.
 
 ---
 
 # Features
 
-- Search businesses by **type and location**
-- Filter by:
-  - rating
-  - review count
-  - website presence
-- Export results to:
-  - CLI table
-  - CSV file
-- Store results in **campaigns**
-- Simple **CLI workflow**
-- Local SQLite database
-- Clean terminal output using **Rich**
+### Business Search
+Search businesses by **type and location**
+
+```bash
+leadminer search plumber london
+```
+
+---
+
+### Powerful Filters
+
+Filter results using:
+
+- rating
+- review count
+- website presence
+
+Examples:
+
+```bash
+leadminer search plumber london --website n
+```
+
+Find businesses **without websites**
+
+```bash
+leadminer search cafe manchester --min-rating 0 --max-rating 3
+```
+
+Find **poorly rated businesses**
+
+```bash
+leadminer search electrician birmingham --min-reviews 10
+```
+
+Find **established businesses**
+
+---
+
+### Export Results
+
+Export results to:
+
+- beautiful CLI tables
+- CSV files for outreach workflows
+
+```bash
+leadminer search plumber london --output-format csv
+```
+
+---
+
+### Campaign System
+
+Store leads inside **campaigns**.
+
+Example workflow:
+
+```bash
+leadminer campaign create plumbers
+leadminer campaign select plumbers
+```
+
+Now every search result will be **saved automatically**.
+
+---
+
+### Local Database
+
+LeadMiner stores all data locally using **SQLite**.
+
+No external storage required.
+
+---
+
+### Clean Terminal Output
+
+Uses the **Rich** library to display leads in structured tables.
+
+Example output:
+
+```
+┏━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━┓
+┃ Name          ┃ Address           ┃ Phone        ┃ Website  ┃ Rating ┃ Reviews ┃
+┡━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━┩
+┃ London Plumb  ┃ 10 High St       ┃ 020 1234 5678┃ -        ┃ 3.2    ┃ 12      ┃
+┃ Rapid Fix     ┃ 42 Bridge Rd     ┃ 020 9988 1122┃ ✔        ┃ 4.7    ┃ 89      ┃
+└───────────────┴───────────────────┴──────────────┴──────────┴────────┴─────────┘
+```
 
 ---
 
 # Installation
 
-The easiest way to install LeadMiner is with **pipx**.
+The recommended way to install LeadMiner is **pipx**.
 
-## Install pipx (recommended)
+pipx installs CLI tools in isolated environments.
+
+---
+
+## Install pipx
 
 Mac:
 
@@ -72,13 +163,13 @@ pipx ensurepath
 
 ## Install LeadMiner
 
-Install from **PyPI**:
+Install directly from **PyPI**:
 
 ```bash
 pipx install leadminer
 ```
 
-Then run:
+Verify installation:
 
 ```bash
 leadminer --help
@@ -86,9 +177,9 @@ leadminer --help
 
 ---
 
-## Install from GitHub (development version)
+## Install Development Version
 
-If you want the latest development version instead:
+Install the latest GitHub version:
 
 ```bash
 pipx install git+https://github.com/launchsites/leadminer.git
@@ -100,19 +191,21 @@ pipx install git+https://github.com/launchsites/leadminer.git
 
 LeadMiner requires a **Google Places API key**.
 
-To learn how to obtain one, run:
+Run:
 
 ```bash
 leadminer setup key
 ```
 
-Then set your key:
+Follow the instructions printed in the terminal.
+
+Then set your API key:
 
 ```bash
 leadminer setup key YOUR_API_KEY
 ```
 
-Set how many businesses you want returned per search:
+Set the maximum number of businesses returned per search:
 
 ```bash
 leadminer setup limit 100
@@ -122,7 +215,7 @@ leadminer setup limit 100
 
 # Usage
 
-Basic search:
+## Basic Search
 
 ```bash
 leadminer search plumber london
@@ -130,19 +223,23 @@ leadminer search plumber london
 
 ---
 
-## Filters
+## Website Filter
 
-Filter results by website presence:
+Find businesses **without websites**:
 
 ```bash
 leadminer search plumber london --website n
 ```
 
-Only show businesses **without websites**.
+Find businesses **with websites**:
+
+```bash
+leadminer search plumber london --website y
+```
 
 ---
 
-Filter by rating:
+## Rating Filter
 
 ```bash
 leadminer search cafe manchester --min-rating 0 --max-rating 3
@@ -150,15 +247,15 @@ leadminer search cafe manchester --min-rating 0 --max-rating 3
 
 ---
 
-Filter by review count:
+## Review Count Filter
 
 ```bash
-leadminer search electrician birmingham --min-reviews 10
+leadminer search electrician birmingham --min-reviews 20
 ```
 
 ---
 
-## Export to CSV
+## Export CSV
 
 ```bash
 leadminer search plumber london --output-format csv
@@ -166,7 +263,7 @@ leadminer search plumber london --output-format csv
 
 CSV files are saved to:
 
-```text
+```
 ~/.leadminer/exports/
 ```
 
@@ -174,31 +271,37 @@ CSV files are saved to:
 
 # Campaigns
 
-Campaigns let you **store leads from searches** for later use.
+Campaigns allow you to **store and organise leads**.
 
-Create a campaign:
+---
+
+## Create Campaign
 
 ```bash
 leadminer campaign create plumbers
 ```
 
-Select a campaign:
+---
+
+## Select Campaign
 
 ```bash
 leadminer campaign select plumbers
 ```
 
-Now all search results will automatically be saved.
+Search results will now be stored automatically.
 
 ---
 
-List campaigns:
+## List Campaigns
 
 ```bash
 leadminer campaign list
 ```
 
-View leads in a campaign:
+---
+
+## View Campaign Data
 
 ```bash
 leadminer campaign list plumbers
@@ -206,7 +309,7 @@ leadminer campaign list plumbers
 
 ---
 
-Stop saving searches:
+## Stop Storing Leads
 
 ```bash
 leadminer campaign disconnect
@@ -214,7 +317,7 @@ leadminer campaign disconnect
 
 ---
 
-Delete a campaign:
+## Remove Campaign
 
 ```bash
 leadminer campaign remove plumbers
@@ -224,13 +327,13 @@ leadminer campaign remove plumbers
 
 # Example Workflow
 
-Find restaurants without websites:
+Find restaurants without websites and export leads.
 
 ```bash
 leadminer search restaurant london --website n --output-format csv
 ```
 
-Create a campaign:
+Create campaign:
 
 ```bash
 leadminer campaign create london-restaurants
@@ -242,27 +345,29 @@ Store leads automatically:
 leadminer campaign select london-restaurants
 ```
 
-Run searches and build your lead list.
+Continue running searches and building your lead list.
 
 ---
 
 # Data Storage
 
-LeadMiner stores data locally:
+LeadMiner stores all data locally.
 
-```text
+Base directory:
+
+```
 ~/.leadminer/
 ```
 
 Database:
 
-```text
+```
 ~/.leadminer/leadminer.db
 ```
 
-Exports:
+CSV exports:
 
-```text
+```
 ~/.leadminer/exports/
 ```
 
@@ -270,27 +375,27 @@ Exports:
 
 # Commands
 
-Search businesses:
+Search businesses
 
-```text
+```
 leadminer search
 ```
 
-Campaign management:
+Campaign management
 
-```text
+```
 leadminer campaign
 ```
 
-Setup API key and limit:
+Setup API key and limits
 
-```text
+```
 leadminer setup
 ```
 
-Help:
+CLI help
 
-```text
+```
 leadminer help
 ```
 
@@ -298,20 +403,43 @@ leadminer help
 
 # Tech Stack
 
+LeadMiner is built with:
+
 - Python
 - Typer (CLI framework)
-- Rich (terminal output)
+- Rich (terminal formatting)
 - SQLite
-- Google Places API
 - Requests
+- Google Places API
+
+---
+
+# Roadmap
+
+Planned improvements:
+
+- pagination support
+- multi-location search
+- JSON export
+- email extraction from websites
+- async searching
+- bulk search workflows
+- outreach automation
 
 ---
 
 # Contributing
 
-Pull requests are welcome.
+Contributions are welcome.
 
-If you find bugs or have ideas for improvements, open an issue.
+Ideas for improvements:
+
+- faster searching
+- new filters
+- outreach features
+- better exports
+
+Open an issue or submit a pull request.
 
 ---
 
